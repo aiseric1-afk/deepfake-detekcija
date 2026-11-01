@@ -81,8 +81,6 @@ Dva rizika koja moramo kontrolisati:
 | 10 | M7 — rezerva / dodatni test | — |
 | 11 | M8 — izvještaj i prezentacija | izvještaj |
 
-Detaljnije: [docs/PLAN.md](docs/PLAN.md).
-
 ## Instalacija
 
 ```bash
@@ -114,8 +112,6 @@ python -m src.priprema
 ```
 README.md
 requirements.txt
-docs/
-  PLAN.md          faze projekta
 src/
   config.py        putanje, uredjaj, sjeme
   analiza_m1.py    analiza skupa: format, crno-bijele, perceptualni hes
