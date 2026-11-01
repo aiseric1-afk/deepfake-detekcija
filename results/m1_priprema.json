@@ -1,0 +1,28 @@
+{
+  "ukupno_slika": 120000,
+  "osoba": 30000,
+  "insight_s_pronadjenom_pozadinom": 22445,
+  "insight_izbaceno_curenje": 10399,
+  "inpainting_do_wiki_iste_osobe_medijan_bita": 2.0,
+  "inpainting_do_wiki_iste_osobe_udio_do_6": 0.8166,
+  "zadrzano_po_skupu_i_dijelu": {
+    "validacija": {
+      "wiki": 4500,
+      "insight": 1634,
+      "inpainting": 4500,
+      "text2img": 4500
+    },
+    "trening": {
+      "wiki": 21000,
+      "insight": 16301,
+      "inpainting": 21000,
+      "text2img": 21000
+    },
+    "test": {
+      "wiki": 4500,
+      "insight": 1666,
+      "inpainting": 4500,
+      "text2img": 4500
+    }
+  }
+}
