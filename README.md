@@ -14,6 +14,9 @@ Projekat iz predmeta *Metode i primjena vještačke inteligencije*, ETF Sarajevo
 - [Metodologija](#metodologija)
 - [Plan](#plan)
 - [Instalacija](#instalacija)
+- [Upotreba](#upotreba)
+- [Struktura projekta](#struktura-projekta)
+- [Rezultati](#rezultati)
 - [Tim](#tim)
 - [Licenca](#licenca)
 
@@ -89,6 +92,62 @@ pip install -r requirements.txt
 ```
 
 Potreban je Python 3.10+ i PyTorch. Grafička kartica je preporučena, ali nije obavezna.
+
+## Upotreba
+
+```bash
+# gdje su podaci
+export MPVI_DATA=/putanja/do/podataka
+
+# 1. preuzeti cetiri zipa s Hugging Facea u $MPVI_DATA/deepfakeface/
+#    (wiki.zip, insight.zip, inpainting.zip, text2img.zip — ukupno 5,06 GB)
+
+# 2. analiza podataka
+python -m src.analiza_m1
+
+# 3. priprema: ujednacavanje slika, podjela bez curenja, indeks
+python -m src.priprema
+```
+
+## Struktura projekta
+
+```
+README.md
+requirements.txt
+docs/
+  PLAN.md          faze projekta
+src/
+  config.py        putanje, uredjaj, sjeme
+  analiza_m1.py    analiza skupa: format, crno-bijele, perceptualni hes
+  priprema.py      ujednacavanje, podjela po osobi, uklanjanje curenja
+results/           grafovi, tabele i metrike
+```
+
+## Rezultati
+
+### Priprema podataka — tri skrivene prečice
+
+Prije bilo kakvog treniranja provjerili smo po čemu se stvarne i lažne slike razlikuju osim
+samog lažiranja. Našli smo tri prečice koje bi model mogao naučiti umjesto lažiranja:
+
+| Problem | Šta smo uradili |
+|---|---|
+| Lažne slike su sve 512 × 512, stvarne nisu (94 % nekvadratnih) | stvarne razvučene istim putem kao lažne, sve smanjene na 256 × 256 |
+| Inpainting slike su razvučene, bez čuvanja proporcija | isti postupak primijenjen na stvarne |
+| 75 % insight slika (22.445 od 30.000) koristi stvarnu fotografiju **druge** osobe iz skupa kao pozadinu (perceptualni heš; kontrola text2img: 0 %) | podjela 70/15/15 po osobi; izbačeno 10.399 insight slika čija je pozadina u drugom skupu |
+
+Hipoteza da su crno-bijele slike prečica je provjerena i **odbačena** — ima ih podjednako u
+svim dijelovima (13,6–16,6 %).
+
+![Primjeri stvarnih i lažnih slika](results/m1_primjeri.png)
+
+Podjela poslije uklanjanja curenja (`results/m1_priprema.json`):
+
+| Skup | wiki | insight | inpainting | text2img |
+|---|---:|---:|---:|---:|
+| trening | 21.000 | 16.301 | 21.000 | 21.000 |
+| validacija | 4.500 | 1.634 | 4.500 | 4.500 |
+| test | 4.500 | 1.666 | 4.500 | 4.500 |
 
 ## Tim
 
