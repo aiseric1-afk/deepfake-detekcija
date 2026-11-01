@@ -1,0 +1,33 @@
+{
+  "sivo": {
+    "wiki": {
+      "uzorak": 3000,
+      "sivih": 471,
+      "udio": 0.157
+    },
+    "insight": {
+      "uzorak": 3000,
+      "sivih": 457,
+      "udio": 0.1523
+    },
+    "inpainting": {
+      "uzorak": 3000,
+      "sivih": 499,
+      "udio": 0.1663
+    },
+    "text2img": {
+      "uzorak": 3000,
+      "sivih": 408,
+      "udio": 0.136
+    }
+  },
+  "insight_pozadina": {
+    "uzorak": 1000,
+    "najmanja_udaljenost_medijan": 1.0,
+    "udio_do_6": 0.769,
+    "udio_do_10": 0.808,
+    "najblizi_je_ista_osoba": 0,
+    "kontrola_text2img_medijan": 13.0,
+    "kontrola_text2img_udio_do_6": 0.0
+  }
+}
