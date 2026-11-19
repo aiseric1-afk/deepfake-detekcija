@@ -94,8 +94,9 @@ Potreban je Python 3.10+ i PyTorch. Grafička kartica je preporučena, ali nije 
 ## Upotreba
 
 ```bash
-# gdje su podaci
+# gdje su podaci i gdje se cuvaju tezine modela
 export MPVI_DATA=/putanja/do/podataka
+export MPVI_CKPT=/putanja/do/tezina
 
 # 1. preuzeti cetiri zipa s Hugging Facea u $MPVI_DATA/deepfakeface/
 #    (wiki.zip, insight.zip, inpainting.zip, text2img.zip — ukupno 5,06 GB)
@@ -105,7 +106,15 @@ python -m src.analiza_m1
 
 # 3. priprema: ujednacavanje slika, podjela bez curenja, indeks
 python -m src.priprema
+python -m src.pakovanje          # sve slike u jedan fajl — bitno na HDD-u
+
+# 4. bazni model i transfer learning
+python -m src.eksperiment --ime m2_mali_cnn --model mali_cnn --velicina 128 --epohe 8 --n-po-klasi 21000 --amp
+python -m src.eksperiment --ime m2_resnet18 --model resnet18 --epohe 5 --n-po-klasi 21000 --amp
 ```
+
+Na karticama s tenzorskim jezgrima (npr. T4 na Colabu) dodati `--amp`. Na GTX 16xx
+karticama mješovita preciznost je **sporija** — tamo `--amp` izostaviti.
 
 ## Struktura projekta
 
@@ -116,7 +125,13 @@ src/
   config.py        putanje, uredjaj, sjeme
   analiza_m1.py    analiza skupa: format, crno-bijele, perceptualni hes
   priprema.py      ujednacavanje, podjela po osobi, uklanjanje curenja
-results/           grafovi, tabele i metrike
+  pakovanje.py     sve slike u jedan fajl
+  podaci.py        Dataset, transformacije, DataLoader
+  model.py         mali CNN, ResNet-18, EfficientNet-B0
+  petlja.py        trening i evaluacija
+  metrike.py       ROC-AUC, F1, tacnost, matrica konfuzije
+  eksperiment.py   jedan eksperiment od pocetka do kraja
+results/           grafovi, tabele i metrike (+ logovi/)
 ```
 
 ## Rezultati
@@ -128,7 +143,7 @@ samog lažiranja. Našli smo tri prečice koje bi model mogao naučiti umjesto l
 
 | Problem | Šta smo uradili |
 |---|---|
-| Lažne slike su sve 512 × 512, stvarne nisu (94 % nekvadratnih) | stvarne razvučene istim putem kao lažne, sve smanjene na 256 × 256 |
+| Lažne slike su sve 512 × 512, stvarne nisu (94 % nekvadratnih) | stvarne razvučene istim putem kao insight i inpainting, sve smanjene na 256 × 256 |
 | Inpainting slike su razvučene, bez čuvanja proporcija | isti postupak primijenjen na stvarne |
 | 75 % insight slika (22.445 od 30.000) koristi stvarnu fotografiju **druge** osobe iz skupa kao pozadinu (perceptualni heš; kontrola text2img: 0 %) | podjela 70/15/15 po osobi; izbačeno 10.399 insight slika čija je pozadina u drugom skupu |
 
@@ -145,14 +160,31 @@ Podjela poslije uklanjanja curenja (`results/m1_priprema.json`):
 | validacija | 4.500 | 1.634 | 4.500 | 4.500 |
 | test | 4.500 | 1.666 | 4.500 | 4.500 |
 
+### Bazni model naspram transfer learninga
+
+| Model | insight | inpainting | text2img |
+|---|---:|---:|---:|
+| mali CNN, od nule, 128 × 128 | 0,493 | 0,536 | 0,813 |
+| ResNet-18, ImageNet, 224 × 224 | **0,948** | **0,980** | **0,997** |
+
+ROC-AUC na testu, trening na sve tri metode. Mala mreža od nule ne razlikuje zamjenu lica i
+inpainting: gubitak je stajao na 0,687, a nasumično pogađanje daje ln 2 ≈ 0,693. ResNet-18 s istim podacima
+prepoznaje sve tri metode — prethodno znanje iz ImageNeta je presudno.
+
+Zašto je ROC-AUC glavna metrika vidi se već ovdje: u trećoj epohi ResNet-18 AUC na validaciji
+je pao samo sa 0,940 na 0,926, a tačnost sa 0,867 na 0,694 — model je i dalje dobro rangirao slike,
+samo mu je prag odluke bio pomjeren.
+
 ## Tim
+
+Tim **Taedium**.
 
 | Član | Odgovornost |
 |---|---|
-| | Podaci |
-| | Modeli |
-| | Generalizacija i otpornost |
-| | Objašnjivost i prezentacija |
+| Abdullah Išerić | Podaci |
+| Nedim Kalajdžija | Modeli |
+| Benjamin Hadžihasanović | Generalizacija i otpornost |
+| Tarik Čaluk | Objašnjivost i prezentacija |
 
 ## Licenca
 

@@ -1,0 +1,16 @@
+paket slika ucitan u kes za 19 s
+trening: 42000 slika  (stvarnih 21000, laznih 21000)   metode: insight, inpainting, text2img
+validacija: 15134 slika   model: mali_cnn   lr: 0.001   uredjaj: cuda
+epoha  1  gubitak 0.6986  val AUC 0.6188  tacnost 0.5406  (371.4 s)
+epoha  2  gubitak 0.6891  val AUC 0.6452  tacnost 0.6901  (339.2 s)
+epoha  3  gubitak 0.6872  val AUC 0.6481  tacnost 0.6022  (338.9 s)
+epoha  4  gubitak 0.6874  val AUC 0.6469  tacnost 0.6888  (338.8 s)
+epoha  5  gubitak 0.6861  val AUC 0.6487  tacnost 0.6443  (338.8 s)
+epoha  6  gubitak 0.6877  val AUC 0.6463  tacnost 0.6701  (338.8 s)
+epoha  7  gubitak 0.6875  val AUC 0.6374  tacnost 0.6284  (344.0 s)
+epoha  8  gubitak 0.6872  val AUC 0.6348  tacnost 0.5987  (363.3 s)
+TEST insight     AUC 0.4930   tacnost 0.4885   F1 0.3518   n=6166  (vidjena u treningu)
+TEST inpainting  AUC 0.5362   tacnost 0.5281   F1 0.5502   n=9000  (vidjena u treningu)
+TEST text2img    AUC 0.8131   tacnost 0.6991   F1 0.7534   n=9000  (vidjena u treningu)
+
+upisano: results/m2_mali_cnn.json   (trajanje 2775 s)
