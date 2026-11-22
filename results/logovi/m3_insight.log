@@ -1,0 +1,14 @@
+paket slika ucitan u kes za 20 s
+trening: 32602 slika  (stvarnih 16301, laznih 16301)   metode: insight
+validacija: 6134 slika   model: resnet18   lr: 0.0003   uredjaj: cuda
+epoha  1  gubitak 0.4284  val AUC 0.9260  tacnost 0.8624  (199.4 s)
+epoha  2  gubitak 0.3278  val AUC 0.9450  tacnost 0.8784  (138.3 s)
+epoha  3  gubitak 0.2879  val AUC 0.9456  tacnost 0.8893  (139.3 s)
+epoha  4  gubitak 0.2497  val AUC 0.9530  tacnost 0.9010  (139.4 s)
+epoha  5  gubitak 0.2144  val AUC 0.9611  tacnost 0.9094  (138.9 s)
+epoha  6  gubitak 0.1879  val AUC 0.9661  tacnost 0.8958  (139.3 s)
+TEST insight     AUC 0.9659   tacnost 0.8990   F1 0.8248   n=6166  (vidjena u treningu)
+TEST inpainting  AUC 0.5108   tacnost 0.5047   F1 0.1726   n=9000  (NEVIDJENA)
+TEST text2img    AUC 0.3478   tacnost 0.4754   F1 0.0788   n=9000  (NEVIDJENA)
+
+upisano: results/m3_insight.json   (trajanje 897 s)

@@ -1,0 +1,14 @@
+paket slika ucitan u kes za 15 s
+trening: 32602 slika  (stvarnih 16301, laznih 16301)   metode: inpainting
+validacija: 9000 slika   model: resnet18   lr: 0.0003   uredjaj: cuda
+epoha  1  gubitak 0.3742  val AUC 0.9575  tacnost 0.8066  (179.8 s)
+epoha  2  gubitak 0.2340  val AUC 0.9608  tacnost 0.8016  (142.3 s)
+epoha  3  gubitak 0.1641  val AUC 0.9507  tacnost 0.8282  (142.7 s)
+epoha  4  gubitak 0.1153  val AUC 0.9880  tacnost 0.9220  (173.2 s)
+epoha  5  gubitak 0.0712  val AUC 0.9948  tacnost 0.9639  (177.2 s)
+epoha  6  gubitak 0.0465  val AUC 0.9951  tacnost 0.9656  (177.2 s)
+TEST insight     AUC 0.6513   tacnost 0.7266   F1 0.1459   n=6166  (NEVIDJENA)
+TEST inpainting  AUC 0.9958   tacnost 0.9674   F1 0.9676   n=9000  (vidjena u treningu)
+TEST text2img    AUC 0.9885   tacnost 0.9428   F1 0.9416   n=9000  (NEVIDJENA)
+
+upisano: results/m3_inpainting.json   (trajanje 995 s)

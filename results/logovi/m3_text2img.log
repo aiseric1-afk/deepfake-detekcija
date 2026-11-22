@@ -1,0 +1,14 @@
+paket slika ucitan u kes za 20 s
+trening: 32602 slika  (stvarnih 16301, laznih 16301)   metode: text2img
+validacija: 9000 slika   model: resnet18   lr: 0.0003   uredjaj: cuda
+epoha  1  gubitak 0.0860  val AUC 0.9961  tacnost 0.9494  (170.7 s)
+epoha  2  gubitak 0.0438  val AUC 0.9990  tacnost 0.9861  (138.2 s)
+epoha  3  gubitak 0.0314  val AUC 0.9994  tacnost 0.9901  (138.7 s)
+epoha  4  gubitak 0.0200  val AUC 0.9997  tacnost 0.9937  (138.8 s)
+epoha  5  gubitak 0.0079  val AUC 0.9998  tacnost 0.9947  (138.7 s)
+epoha  6  gubitak 0.0048  val AUC 0.9998  tacnost 0.9959  (138.7 s)
+TEST insight     AUC 0.4850   tacnost 0.7249   F1 0.0059   n=6166  (NEVIDJENA)
+TEST inpainting  AUC 0.7146   tacnost 0.5671   F1 0.2470   n=9000  (NEVIDJENA)
+TEST text2img    AUC 0.9998   tacnost 0.9937   F1 0.9937   n=9000  (vidjena u treningu)
+
+upisano: results/m3_text2img.json   (trajanje 866 s)
